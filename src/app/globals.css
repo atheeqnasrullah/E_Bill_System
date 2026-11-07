@@ -1,0 +1,120 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ---------------------------------------------------------------------------
+   Colour tokens (R G B). The app is dark by default.
+   Anything inside ".paper" (the bill) uses the light palette.
+   --------------------------------------------------------------------------- */
+:root {
+  color-scheme: dark;
+  --card: 20 23 30;
+  --slate-50: 11 13 18;
+  --slate-100: 30 34 42;
+  --slate-200: 40 45 55;
+  --slate-300: 55 61 74;
+  --slate-400: 107 114 128;
+  --slate-500: 139 147 161;
+  --slate-600: 163 171 184;
+  --slate-700: 196 202 212;
+  --slate-800: 221 225 231;
+  --slate-900: 241 243 246;
+  --slate-950: 250 250 252;
+  --brand-50: 8 44 34;
+  --brand-700: 52 211 153;
+  --brand-900: 209 250 229;
+  --red-50: 50 18 20;
+  --red-200: 90 32 34;
+  --red-600: 248 113 113;
+  --red-700: 252 165 165;
+}
+
+.paper {
+  color-scheme: light;
+  --card: 253 252 248;
+  --slate-50: 246 245 240;
+  --slate-100: 236 234 228;
+  --slate-200: 222 219 211;
+  --slate-300: 203 213 225;
+  --slate-400: 148 163 184;
+  --slate-500: 100 116 139;
+  --slate-600: 71 85 105;
+  --slate-700: 51 65 85;
+  --slate-800: 30 41 59;
+  --slate-900: 15 23 42;
+  --slate-950: 2 6 23;
+  --brand-50: 236 253 245;
+  --brand-700: 4 120 87;
+  --brand-900: 6 78 59;
+  --red-50: 254 242 242;
+  --red-200: 254 202 202;
+  --red-600: 220 38 38;
+  --red-700: 185 28 28;
+  color: rgb(var(--slate-900));
+}
+
+body {
+  background: rgb(var(--slate-50));
+  color: rgb(var(--slate-900));
+}
+
+/* Reusable building blocks. Big tap targets for use at a shop counter. */
+@layer components {
+  .btn {
+    @apply inline-flex min-h-[48px] items-center justify-center gap-2 rounded-xl px-5 text-base font-semibold
+      transition active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-50;
+  }
+  .btn-primary {
+    @apply btn bg-brand-600 text-white hover:bg-brand-500;
+  }
+  .btn-secondary {
+    @apply btn border border-slate-300 bg-card text-slate-800 hover:bg-slate-100;
+  }
+  .btn-danger {
+    @apply btn border border-red-200 bg-card text-red-600 hover:bg-red-50;
+  }
+  .btn-whatsapp {
+    @apply btn bg-[#25D366] text-white hover:bg-[#1ebe5b];
+  }
+  .input {
+    @apply block min-h-[48px] w-full rounded-xl border border-slate-300 bg-slate-50 px-4 text-base text-slate-900
+      placeholder:text-slate-400 focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-500/30;
+  }
+  .label {
+    @apply mb-1.5 block text-sm font-medium text-slate-700;
+  }
+  .card {
+    @apply rounded-2xl border border-slate-200 bg-card p-4;
+  }
+  .page-title {
+    @apply text-2xl font-bold text-slate-900;
+  }
+  .eyebrow {
+    @apply flex items-center gap-3 font-mono text-xs uppercase tracking-[0.2em] text-slate-500
+      before:h-px before:w-6 before:bg-slate-400 before:content-[''];
+  }
+}
+
+/* Leave room for the iPhone home bar under the bottom navigation. */
+.pb-safe {
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+/* Zig-zag torn-paper edge used on the receipt illustration. */
+.receipt-edge {
+  --zz: 8px;
+  mask:
+    conic-gradient(from -45deg at bottom, #0000, #000 1deg 89deg, #0000 90deg) 50% / calc(2 * var(--zz)) 100%,
+    conic-gradient(from 135deg at top, #0000, #000 1deg 89deg, #0000 90deg) 50% / calc(2 * var(--zz)) 100%;
+  mask-composite: intersect;
+  -webkit-mask-composite: source-in;
+}
+
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  body {
+    background: white;
+  }
+}
