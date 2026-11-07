@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import PdfButtons from './PdfButtons';
+import ImageShareButton from './ImageShareButton';
 import { buildBillMessage, buildWhatsAppUrl } from '@/lib/whatsapp';
 import type { PublicBill } from '@/lib/types';
 
@@ -35,6 +36,12 @@ export default function ShareActions({ bill, link }: { bill: PublicBill; link: s
         </svg>
         Share on WhatsApp
       </a>
+      <ImageShareButton
+        token={bill.public_token}
+        billNumber={bill.bill_number}
+        message={message}
+        className="btn w-full border border-[#25D366]/50 bg-card text-[#25D366] hover:bg-slate-100"
+      />
       <div className="grid grid-cols-2 gap-3">
         <PdfButtons bill={bill} />
         <button type="button" onClick={copyLink} className="btn-secondary w-full">
